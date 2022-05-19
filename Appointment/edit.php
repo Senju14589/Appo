@@ -33,6 +33,8 @@ table {
     if (isset($_POST['update'])) {
         $phonenumber = $_GET['phonenumber'];
         $total_time = $_GET['total_time'];
+        if($total_time == "รองาน") $color="#FF6600"; // สีส้ม
+        echo "<font color=\"red\">ยังไม่รับทราบ</font>";
 
         //query ข้อมูลจากตาราง: 
         $sql = "SELECT * FROM csadmin WHERE number = '$number' ";

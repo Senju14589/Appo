@@ -1,63 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-</html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบเรียกรับบัตรนัดหมาย</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-</head>
-<style>
-.ps {
-    font-family: 'Prompt', sans-serif;
-}
-
-button,
-table {
-    font-family: 'Prompt', sans-serif;
-}
-</style>
 <?php
-   include_once('function.php');
+include_once('includes/function.php');
 
-   //ตัวแปรสำหรับรับค่าที่นำมาแก้ไขจากฟอร์ม
-   $number = $_POST['number'];
-   $phonenumber = $_POST['phonenumber'];
-   $total_time = $_POST['total_time'];
-   
-   //ปรับปรุงข้อมูลที่จะแก้ไขลงใน database 
-   $sql = "UPDATE csadmin SET  
-            phonenumber='$phonenumber' ,
-            total_time='$total_time'  
-            WHERE number='$number'";
+//ตัวแปรสำหรับรับค่าที่นำมาแก้ไขจากฟอร์ม
+if (isset($_POST['show_number'])) {
 
-   $result = mysqli_query($db, $sql) or die ("Error in query: $sql " . mysqli_error($conn). "<br>$sql");
-    mysqli_close($db); ////ปิดการเชื่อมต่อ database 
+  $edit_user = $process->get_user($_POST['show_number']);
 
-    if($result){
-    echo "<script type='text/javascript'>";
-    echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว!!');";
-    echo "window.location = 'index.php'; ";
-    echo "</script>";
-    }
-    else{
-    echo "<script type='text/javascript'>";
-    echo "alert('เกิดข้อผิดพลาดในการอัปเดตv');";
-        echo "window.location = 'index.php'; ";
-    echo "</script>";
+  echo '<form id="edit_user_form">
+          <div class="form-group">
+            <label >ชื่อ - สกุล</label>
+            <input type="text" class="form-control" name="edit_name" value="' . $edit_user['phonenumber'] . '">
+          </div>
+          <div class="form-group">
+            <label >เบอร์โทรศัพท์</label>
+            <input type="text" class="form-control" name="edit_tel" value="' . $edit_user['total_time'] . '">
+          </div>
+          <input type="hidden" name="edit_user_id" value="' . $edit_user['id'] . '" >
+        </form>';
 }
-?>
-
-
-
-
-</body>
-
-</html>

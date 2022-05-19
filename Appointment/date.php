@@ -37,4 +37,3 @@ print "<br> $t1 <br> $t2  <br>  ";
 $datetime=dateDiv($t1,$t2);
 print_r($datetime);
 */
-?>
